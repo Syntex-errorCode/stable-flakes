@@ -1,6 +1,8 @@
 `stable-flakes`
 ===============
 
+Stabilize your Flakes with just one input!
+
 Usage
 -----
 
