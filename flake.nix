@@ -2,7 +2,7 @@
   description = ''
     A very basic (and stable) flake.
     Make your Flakes stable with just one input!
-    Reproducibility issues in libfetchers solved, once and for all!
+    Reproducibility of libfetchers solved, once and for all!
   '';
   inputs = { };
   outputs =
