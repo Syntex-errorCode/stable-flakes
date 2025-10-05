@@ -2,9 +2,25 @@
   description = "A very basic (and stable) flake";
   inputs = { };
   outputs =
-    { self }:
+    { self, ... }:
     {
       lib = {
+
+        genAttrs =
+          names: f:
+          builtins.listToAttrs (
+            map (name: {
+              inherit name;
+              value = f name;
+            }) names
+          );
+        forEachSystem = self.lib.genAttrs self.lib.systems;
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
 
         # :: Exception
         error = throw self.lib.announcement;
@@ -41,12 +57,43 @@
         '';
 
       };
-
-      checks.x86_64-linux = self.lib.warn { };
-      packages.x86_64-linux = self.lib.warn { };
-      legacyPackages.x86_64-linux.default = self.lib.error;
       nixosModules.default = self.lib.error;
       flakeModules.default = self.lib.error;
       nixosConfigurations = self.lib.warn { };
+
+      checks = self.lib.forEachSystem (
+        system:
+        self.lib.warn {
+        }
+      );
+      packages = self.lib.warn (
+        self.lib.forEachSystem (
+          system:
+          self.lib.genAttrs
+            [
+              "stable"
+              "unstable"
+              "deprecated"
+              "legacy"
+              "stop-using"
+              "delete-your"
+              "phase-out"
+              "default"
+            ]
+            (
+              prefix:
+              derivation {
+                name = "${prefix}-flakes.md";
+                inherit system;
+                inherit (self.lib) announcement;
+                outputs = [ "out" ];
+                builder = ./builder.sh;
+              }
+            )
+        )
+      );
+      legacyPackages = self.lib.forEachSystem (system: {
+        default = self.lib.error;
+      });
     };
 }
