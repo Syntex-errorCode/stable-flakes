@@ -6,6 +6,7 @@
     {
       lib = {
 
+        # :: List String -> (String -> a) -> Map String a
         genAttrs =
           names: f:
           builtins.listToAttrs (
@@ -14,7 +15,11 @@
               value = f name;
             }) names
           );
+
+        # :: (String -> a) -> Map String a
         forEachSystem = self.lib.genAttrs self.lib.systems;
+
+        # :: List String
         systems = [
           "x86_64-linux"
           "aarch64-linux"
