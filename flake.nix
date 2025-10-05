@@ -129,7 +129,9 @@
         error = throw self.lib.announcement;
 
         # :: String -> a -> a
-        warn = (builtins.warn or (msg: builtins.trace "EVALUATION WARNING:\n${msg}")) self.lib.announcement;
+        warn =
+          (builtins.warn or (msg: builtins.trace "\nEVALUATION WARNING:\n${msg}"))
+            self.lib.announcement;
 
         # :: String
         announcement = (import ./flake.nix).description;
@@ -139,11 +141,10 @@
       flakeModules.default = self.lib.error;
       nixosConfigurations = self.lib.warn { };
 
-      checks = self.lib.forEachSystem (
-        system:
-        /* self.lib.warn */ {
-        }
-      );
+      checks = self.lib.forEachSystem (system:
+      # self.lib.warn
+      {
+      });
       packages = self.lib.warn (
         self.lib.forEachSystem (
           system:
@@ -162,5 +163,9 @@
       legacyPackages = self.lib.forEachSystem (system: {
         default = self.lib.error;
       });
+      templates.default = {
+        path = ./.;
+        description = "PREPARE THE STABILIZATION BEAM\n\n" + self.lib.announcement;
+      };
     };
 }
