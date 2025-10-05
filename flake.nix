@@ -37,10 +37,15 @@
           "delete-your"
           "phase-out"
           "luke-use-lix"
+
+          # NOTE: These are derivative works, its license is hereby included by reference: https://github.com/Jaculabilis/nixpkgs-gold/blob/94e9a15958a0445ce6382b7c17150260ab53bd87/LICENSE
           "forward-deployed"
-          "premium-derivations"
-          "nixpkgs-gold"
           "declarative-war"
+          "nixpkgs-gold"
+          "premium-derivations"
+          "premium"
+          "STEERING-COMMITTEE-IS-WATCHING-YOU"
+
           "nixos-jetson"
           "cuda"
           "use-more-s3-space"
@@ -84,7 +89,6 @@
           "eessi"
           "python"
           "llama-cpp"
-          "STEERING-COMMITTEE-IS-WATCHING-YOU"
           "determinate"
           "lix"
           "determinate-lix"
