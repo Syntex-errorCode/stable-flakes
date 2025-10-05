@@ -50,6 +50,8 @@
           "premium"
           "STEERING-COMMITTEE-IS-WATCHING-YOU"
 
+          "mindvirus-is"
+          "flakegate"
           "flakehub"
           "nixos-jetson"
           "cuda"
