@@ -22,6 +22,75 @@
           "aarch64-darwin"
         ];
 
+        # :: String
+        keywords = [
+          "stable"
+          "unstable"
+          "deprecated"
+          "legacy"
+          "stop-using"
+          "delete-your"
+          "phase-out"
+          "luke-use-lix"
+          "forward-deployed"
+          "premium-derivations"
+          "nixpkgs-gold"
+          "declarative-war"
+          "nixos-jetson"
+          "cuda"
+          "use-more-s3-space"
+          "no-castore-moar-s3"
+          "not-some-legitimacy-actual-legitimacy"
+          "llm"
+          "vllm"
+          "nerf"
+          "npbg"
+          "splatting"
+          "chatgpt"
+          "claude"
+          "ai"
+          "hf"
+          "huggingface"
+          "sonnet"
+          "security"
+          "agentic"
+          "microvm"
+          "firecracker"
+          "deepseek"
+          "kyc"
+          "aml"
+          "cft"
+          "bazel"
+          "robotics"
+          "ROS"
+          "yocto"
+          "tensorflow"
+          "torch"
+          "pytorch"
+          "impermanence"
+          "compliance"
+          "sbom"
+          "bundlers"
+          "nix-the-planet"
+          "hydra"
+          "gpu-passthrough"
+          "easybuild"
+          "anaconda"
+          "eessi"
+          "python"
+          "llama-cpp"
+          "STEERING-COMMITTEE-IS-WATCHING-YOU"
+          "determinate"
+          "lix"
+          "determinate-lix"
+          "DeLIcieuX"
+          "interlinked"
+          "flakes-interlinked"
+        ];
+
+        # :: String -> String
+        flakify = x: "${x}-FLAKES";
+
         # :: Exception
         error = throw self.lib.announcement;
 
@@ -69,27 +138,16 @@
       packages = self.lib.warn (
         self.lib.forEachSystem (
           system:
-          self.lib.genAttrs
-            [
-              "stable"
-              "unstable"
-              "deprecated"
-              "legacy"
-              "stop-using"
-              "delete-your"
-              "phase-out"
-              "default"
-            ]
-            (
-              prefix:
-              derivation {
-                name = "${prefix}-flakes.md";
-                inherit system;
-                inherit (self.lib) announcement;
-                outputs = [ "out" ];
-                builder = ./builder.sh;
-              }
-            )
+          self.lib.genAttrs ([ "default" ] ++ map self.lib.flakify self.lib.keywords) (
+            name:
+            derivation {
+              name = "${name}.md";
+              inherit system;
+              inherit (self.lib) announcement;
+              outputs = [ "out" ];
+              builder = ./builder.sh;
+            }
+          )
         )
       );
       legacyPackages = self.lib.forEachSystem (system: {
