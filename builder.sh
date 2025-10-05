@@ -1,3 +1,3 @@
 #!/bin/sh
 
-printf "%s" "$announcement" > "$out"
+printf "%s" "$md" > "$out"
