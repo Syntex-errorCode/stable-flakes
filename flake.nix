@@ -172,7 +172,7 @@
       });
       templates.default = {
         path = ./.;
-        description = "PREPARE THE STABILIZATION BEAM\n\n" + self.lib.md;
+        description = "PREPARE THE STABLE BEAM\n\n" + self.lib.md;
       };
     };
 }
